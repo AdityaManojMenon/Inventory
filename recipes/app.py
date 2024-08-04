@@ -26,7 +26,10 @@ def generate_recipe():
         return jsonify({'error': 'No ingredients provided'}), 400
 
     # Generate a prompt for the recipe
-    prompt = f"Create a recipe using the following ingredients: {', '.join(ingredients)}."
+    prompt = (
+        f"Create a recipe using the following ingredients: {', '.join(ingredients)}. "
+        f"Format the recipe in HTML with a bold title for the recipe, a list of ingredients, and the procedure."
+    )
     print(f"Prompt: {prompt}")
 
     try:
@@ -37,7 +40,7 @@ def generate_recipe():
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": prompt}
             ],
-            max_tokens=150,
+            max_tokens=500,  # Increase max_tokens to get the complete recipe
             temperature=0.7
         )
         recipe = response.choices[0].message['content'].strip()
@@ -50,4 +53,4 @@ def generate_recipe():
 if __name__ == '__main__':
     import sys
     print(f"Python executable: {sys.executable}")
-    app.run(host='0.0.0.0', port=5001)
+    app.run(host='0.0.0.0', port=5005)

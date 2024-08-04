@@ -116,7 +116,7 @@ export default function Home() {
     setErrorMessage("");
     const ingredients = pantry.map(item => item.name);
     try {
-      const response = await axios.post('http://localhost:5001/generate-recipe', 
+      const response = await axios.post('http://127.0.0.1:5005/generate-recipe', 
         { ingredients },
         {
           headers: {
@@ -292,9 +292,12 @@ export default function Home() {
           <Typography variant="h4" color="text.primary" textAlign="center" mb={2}>
             Generated Recipe
           </Typography>
-          <Typography variant="body1" color="text.primary">
-            {recipe}
-          </Typography>
+          <Typography
+            variant="body1"
+            color="text.primary"
+            component="div"
+            dangerouslySetInnerHTML={{ __html: recipe }}
+          />
         </Box>
       )}
 
